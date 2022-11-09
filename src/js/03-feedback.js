@@ -5,9 +5,7 @@ const LOCALSTORAGE_KEY = 'feedback-form-state';
 const data = {};
 
 form.addEventListener('input', throttle(onInput, 500));
-form.addEventListener('submit', onSubmit);
-// textInput();
-// onForm();
+form.addEventListener('submit', updateForm);
 
 function onInput(e) {
   data[e.target.name] = e.target.value;
@@ -16,42 +14,37 @@ function onInput(e) {
   //   console.log(data);
 }
 
-function onSubmit(e) {
-  e.preventDefault();
-
-  if (localStorage.setItem(STORAGE_KEY)) {
-    console.log(JSON.parse(localStorage.getItem(STORAGE_KEY)));
+const load = key => {
+  try {
+    const serializedState = localStorage.getItem(key);
+    return serializedState === null ? undefined : JSON.parse(serializedState);
+  } catch (error) {
+    console.error('Get state error: ', error.message);
   }
-  e.currentTarget.reset();
+};
 
-  //   localStorage.getItem(LOCALSTORAGE_KEY, form.evt.target.value);
-  //   updateForm();
-  localStorage.removeItem(STORAGE_KEY);
-
-  //   form.reset();
+const localStorageData = load(LOCALSTORAGE_KEY);
+if (localStorageData) {
+  email.value = localStorageData.email;
+  message.value = localStorageData.message;
 }
 
-
-// function onForm() {
-//   try {
-//     const textInput = JSON.parse(localStorage.getItem('STORAGE_KEY'));
-//     if (textInput) {
-//       form.email.value =
-//         !localStorageData || !localStorageData.hasOwnProperty('email')
-//           ? ''
-//           : localStorageData.email;
-//       form.message.value =
-//         !localStorageData || !localStorageData.hasOwnProperty('message')
-//           ? ''
-//           : localStorageData.message;
-//     }
-//   } catch (e) {
-//     console.log(e);
+// function updateForm() {
+//   const localStorageData = JSON.parse(localStorage.getItem(LOCALSTORAGE_KEY));
+//   //   console.log(localStorageData);
+//
+//     if (localStorageData) {
+//       form.email.value = localStorageData || '';
+//       form.message.value = localStorageData || '';
+//
 //   }
 // }
 
-// // updateForm();
+function updateForm(e) {
+  e.preventDefault();
 
-// function updateForm() {
-//   form.textContent = localStorage.getItem(LOCALSTORAGE_KEY) || '';
-// }
+  console.log(JSON.parse(localStorage.getItem(LOCALSTORAGE_KEY)));
+
+  form.reset();
+  localStorage.removeItem(LOCALSTORAGE_KEY);
+}
