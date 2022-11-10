@@ -25,8 +25,8 @@ const load = key => {
 
 const localStorageData = load(LOCALSTORAGE_KEY);
 if (localStorageData) {
-  form.email.value = localStorageData.email;
-  form.message.value = localStorageData.message;
+  form.email.value = localStorageData.email || "";
+  form.message.value = localStorageData.message || "";
 }
 
 // function updateForm() {
