@@ -3,14 +3,11 @@ import throttle from 'lodash.throttle';
 const form = document.querySelector('.feedback-form');
 const LOCALSTORAGE_KEY = 'feedback-form-state';
 let data = {};
-
-
+// let localStorageData = {};
+// onForm();
 
 form.addEventListener('input', throttle(onInput, 500));
 form.addEventListener('submit', updateForm);
-
-// onForm()
-
 
 function onInput(e) {
   data[e.target.name] = e.target.value;
@@ -24,8 +21,8 @@ function updateForm(e) {
 
   console.log(JSON.parse(localStorage.getItem(LOCALSTORAGE_KEY)));
 
-  // form.reset();
-  e.target.reset();
+  form.reset();
+  // e.target.reset();
   localStorage.removeItem(LOCALSTORAGE_KEY);
 }
 
@@ -40,13 +37,16 @@ const load = key => {
 
 const localStorageData = load(LOCALSTORAGE_KEY);
 if (localStorageData) {
-  form.email.value = localStorageData.email || "";
-  form.message.value = localStorageData.message || "";
+  form.email.value = localStorageData.email || '';
+  form.message.value = localStorageData.message || '';
 }
+// if (!JSON.parse(localStorage.getItem(LOCALSTORAGE_KEY))) {
+//   return;
+// }
 
 // function onForm() {
-//   const textInput = localStorage.getItem(LOCALSTORAGE_KEY);
-//   const localStorageData = JSON.parse(textInput);
+
+//   localStorageData = JSON.parse(localStorage.getItem(LOCALSTORAGE_KEY));
 //   //   console.log(localStorageData);
 
 //   if (localStorageData) {
