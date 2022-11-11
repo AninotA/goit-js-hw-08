@@ -13,7 +13,7 @@ function onPlay(data) {
   );
 }
 
-player.setCurrentTime(localStorage.getItem('videoplayer-current-time'));
+player.setCurrentTime(Number(localStorage.getItem('videoplayer-current-time')));
 
 // player.on(
 //   'timeupdate',
