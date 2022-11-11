@@ -30,9 +30,7 @@ function onInput(e) {
 //   form.email.value = localStorageData.email || '';
 //   form.message.value = localStorageData.message || '';
 // }
-// if (!JSON.parse(localStorage.getItem(LOCALSTORAGE_KEY))) {
-//   return;
-// }
+
 
 function onForm() {
 
